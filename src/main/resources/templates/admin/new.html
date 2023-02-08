@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+</head>
+<body>
+<h1>Новый пользователь</h1>
+
+
+<form th:method="POST" th:action="@{/admin/new}" th:object="${_user}">
+    <label for="name"> Name: </label>
+    <input type="text" th:field="*{name}" id="name">
+    <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" > Error name</p>
+    <br>
+
+    <label for="age"> Age: </label>
+    <input type="text" th:field="*{age}" id="age">
+    <p th:if="${#fields.hasErrors('age')}" th:errors="*{age}" > Error age</p>
+    <br>
+
+    <label for="email"> Email: </label>
+    <input type="text" th:field="*{email}" id="email"><br>
+    <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" > Error email</p>
+    <br>
+
+    <label for="pass"> Password: </label>
+    <input type="password" th:field="*{pass}" id="pass"><br>
+    <p th:if="${#fields.hasErrors('pass')}" th:errors="*{pass}" > Error password</p>
+    <br>
+
+    <th:block th:each="role : ${_roleSet}">
+        <input type="checkbox" th:field="*{roleSet}" th:text="${role.name}"  th:value="${role.id}" /><br>
+    </th:block>
+    <p th:if="${#fields.hasErrors('roleSet')}" th:errors="*{roleSet}" > Error Role</p>
+    <br>
+
+
+    <input type="submit" value="New user">
+
+</form>
+<div th:replace ="include/lgt :: copy"></div>
+
+</body>
+</html>

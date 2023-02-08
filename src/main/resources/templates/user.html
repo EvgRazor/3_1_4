@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Spring Security Example</title>
+</head>
+<body>
+<h1>User, welcome spring boot security page!</h1>
+Имя :<span th:text="${_user.getName()}"/><br>
+Возраст :<span th:text="${_user.getAge()}"/><br>
+Email :<span th:text="${_user.getEmail()}"/><br>
+Роль :<span th:text="${_user.getRoleSet()}"/><br>
+<div th:replace ="include/lgt :: copy"></div>
+</body>
+</html>
