@@ -24,8 +24,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userService.getUserNameSc(username);
-
+        User user = userService.getUserEmailSc(username);
 
         if (user == null)
             throw new BadCredentialsException("Нет такого пользователя :(");

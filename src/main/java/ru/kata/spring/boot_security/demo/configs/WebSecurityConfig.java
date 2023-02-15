@@ -28,16 +28,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+                .antMatchers("/", "/index", "/error", "/css/**").permitAll()// пускаем всех по данным адресам
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/user/").hasAnyRole("ADMIN", "USER")
-                .antMatchers("/", "/index").permitAll()
                 .anyRequest().authenticated()
+                .and()
+                // конфигурируем Аутентификацию
+                .formLogin().loginPage("/") // где леит наша форма
+                .loginProcessingUrl("/_login") // на какую станицу перекидывает форму
+                .failureUrl("/?error") //  если не удачная попытка входа
                 .and()
                 .formLogin().successHandler(successUserHandler)
                 .permitAll()
                 .and()
-                .logout()
-                .permitAll();
+                // выход
+                .logout().logoutUrl("/logout") //  страница при переходе на которую будет удаляться все, после перенаправляем
+                .logoutSuccessUrl("/"); //  - перенапрвляем пользоателя на данный урл.
+
     }
 
     // аутентификация DaoAuthenticationProvider

@@ -32,6 +32,11 @@ public class User implements UserDetails {
     @Size(min = 3, max = 20, message = "Минимум 3 символа, максимум 20")
     private String name;
 
+    @Column(name = "lastname")
+    @NotEmpty(message = "Фамилия не может быть пустой")
+    @Size(min = 3, max = 20, message = "Минимум 3 символа, максимум 20")
+    private String lastName;
+
     @Column(name = "email")
     @NotEmpty(message = "Введите email")
     @Email
@@ -67,13 +72,23 @@ public class User implements UserDetails {
         this.user = user;
     }
 
-    public User(int id, String name, String email, int age, String pass, Set<Role> roleSet) {
+    public User(int id, String name, String lastName, String email, int age, String pass, Set<Role> roleSet, User user) {
         this.id = id;
         this.name = name;
+        this.lastName = lastName;
         this.email = email;
         this.age = age;
         this.pass = pass;
         this.roleSet = roleSet;
+        this.user = user;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public int getId() {
@@ -126,13 +141,15 @@ public class User implements UserDetails {
 
     @Override
     public String toString() {
-        return "UserDetailsWrapperImpl{" +
+        return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", age=" + age +
                 ", pass='" + pass + '\'' +
                 ", roleSet=" + roleSet +
+                ", user=" + user +
                 '}';
     }
 

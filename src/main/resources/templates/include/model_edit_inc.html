@@ -1,0 +1,46 @@
+<th:block th:fragment="model_edit">
+    <div class="modal fade"    th:id="'editModal' + ${user.getId()}"  tabindex="-1" role="dialog"  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalCenterTitle">Edit user</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body mx-auto" style="width: 100%">
+                    <form class="row g-3"  th:method="PATCH" th:action="@{/admin/{id}(id=${user.getId()})}" style="margin-left: -15px; margin-right: -15px;" >
+                        <div class="  col-md-6 col-md-offset-3 mx-auto"  >
+                            <label for="validationServer000" class="form-label fw-bold fs-6 text-center" style="width: 100%; display: block; margin-bottom: 3px; ">ID</label>
+                            <input class="form-control bg-body-secondary form-control-sm  text-muted field left" id="validationServer000" type="text"  th:value="${user.id}"  readonly >
+
+                            <label for="validationServer001" class="form-label fw-bold fs-6 text-center" style="width: 100%; display: block; margin-bottom: 3px;" >First name</label>
+                            <input class="form-control form-control-sm  text-muted" id="validationServer001" type="text"  th:value="${user.name}" name="name">
+
+                            <label for="validationServer002" class="form-label fw-bold fs-6 text-center" style="width: 100%; display: block; margin-bottom: 3px; margin-top: 15px ">Last name</label>
+                            <input class="form-control form-control-sm  text-muted" id="validationServer002" type="text"    th:value="${user.lastName}" name="lastName">
+
+                            <label for="validationServer003" class="form-label fw-bold fs-6 text-center" style="width: 100%; display: block; margin-bottom: 3px; margin-top: 15px">Age</label>
+                            <input class="form-control form-control-sm  text-muted" id="validationServer003" type="text" th:value="${user.age}" name="age">
+
+                            <label for="validationServer004" class="form-label fw-bold fs-6 text-center" style="width: 100%; display: block; margin-bottom: 3px; margin-top: 15px">Email</label>
+                            <input class="form-control form-control-sm  text-muted" id="validationServer004" type="text" th:value="${user.email}" name="email">
+
+                            <label for="validationServer005" class="form-label fw-bold fs-6 text-center" style="width: 100%; display: block; margin-bottom: 3px; margin-top: 15px">Password</label>
+                            <input class="form-control form-control-sm  text-muted" id="validationServer005" type="password"  th:value="${user.pass}" name="pass">
+
+                            <label for="validationServer006" class="form-label fw-bold fs-6 text-center" style="width: 100%; display: block; margin-bottom: 3px; margin-top: 15px">Role</label>
+                            <select th:value="${roleSet}" name="roleSet" class="form-control bg-body-secondary form-control-sm  text-muted field left" multiple id="validationServer006" style="height: 60px"  value="11" readonly>
+                                <option th:each="role : ${_roleSet}"
+                                        th:value="${role.id}"
+                                        th:text="${role.name}"  name="id"/>
+                            </select>
+                        </div>
+                        <div class="modal-footer  " s>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <input type="submit" class="btn btn-primary" value="Edit">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>

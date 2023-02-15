@@ -1,0 +1,40 @@
+<th:block th:fragment="new_user">
+  <div class="card-group" style="margin-top: -20px; ">
+    <div class="card" style="border-right: none"></div>
+    <div class="card" style="border-right: none">
+      <div class="card-body"  >
+        <form class="row g-3"  th:method="POST" th:action="@{/admin}" >
+          <div class="col-md-12 fs-6"  >
+            <label for="validationServer01" class="form-label fw-bold fs-6 text-center" style="width: 100%; display: block; margin-bottom: 3px; ">First name</label>
+            <input class="form-control form-control-sm  text-muted" id="validationServer01" type="text" name="name">
+
+            <label for="validationServer02" class="form-label fw-bold fs-6 text-center" style="width: 100%; display: block; margin-bottom: 3px; margin-top: 15px ">Last name</label>
+            <input class="form-control form-control-sm  text-muted" id="validationServer02" type="text" name="lastName" >
+
+            <label for="validationServer03" class="form-label fw-bold fs-6 text-center" style="width: 100%; display: block; margin-bottom: 3px; margin-top: 15px">Age</label>
+            <input class="form-control form-control-sm  text-muted" id="validationServer03" type="text"  name="age" >
+
+            <label for="validationServer04" class="form-label fw-bold fs-6 text-center" style="width: 100%; display: block; margin-bottom: 3px; margin-top: 15px">Email</label>
+            <input class="form-control form-control-sm  text-muted" id="validationServer04" type="text"  name="email" >
+
+            <label for="validationServer05" class="form-label fw-bold fs-6 text-center" style="width: 100%; display: block; margin-bottom: 3px; margin-top: 15px">Password</label>
+            <input class="form-control form-control-sm  text-muted" id="validationServer05" type="password"  name="pass">
+
+            <label for="validationServer06" class="form-label fw-bold fs-6 text-center" style="width: 100%; display: block; margin-bottom: 3px; margin-top: 15px">Role</label>
+            <select th:value="${roleSet}" name="roleSet" class="form-select text-muted" multiple id="validationServer06" style="height: 60px">
+              <option th:each="role : ${_roleSet}"
+                      th:value="${role.id}"
+                      th:text="${role.name}"  name="id"/>
+            </select>
+          </div>
+          <div class="col-12" style="width: 100%; min-width: 100px" >
+            <div class="text-center">
+              <button class="btn btn-success " type="submit" >Add new user</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="card" style="border-left: none"></div>
+  </div>
+</th:block>

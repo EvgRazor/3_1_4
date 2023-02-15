@@ -1,0 +1,105 @@
+<!-- header -->
+<th:block th:replace ="include/header_inc :: header"></th:block>
+<!-- header -->
+<body>
+<!-- header nav-->
+<th:block th:replace ="include/header_nav_inc :: header_nav"></th:block>
+<!-- header nav-->
+
+<div class="container-fluid" >
+  <div class="row">
+    <div class="col-lg-2 .col-sm-6" style="margin-top: 10px; ">
+      <!-- Left menu -->
+      <span th:replace ="include/left_menu_inc :: left_menu"></span>
+      <!-- Left menu -->
+    </div>
+
+    <div class="col-lg-10 .col-sm-6   bg-body-tertiary" style="height: 100vh; margin-bottom: -50px; padding-top: 10px; padding-left :20px " >
+      <div class="header fs-1">
+        Admin panel
+      </div>
+      <nav class="nav nav-tabs" id="nav-tab" role="tablist">
+        <a class="nav-link active " id="nav-home-tab" data-bs-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Users table</a>
+        <a class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">New User</a>
+      </nav>
+
+
+      <div class="tab-content" id="nav-tabContent ">
+        <div class="tab-pane fade show active border border border border-top-0" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+          <div class="alert alert-secondary fs-6 text-black fw-bold"  role="alert" style="background-color: #F7F7F7">
+            All users
+          </div>
+
+          <div class="wrapper" style="padding:17px 20px 30px; background-color: white; margin-top: -17px ">
+            <table class="table table-striped table-group-divider table table-borderless "
+                   style="border-top-color:#E6E9EC;  background-color: white; " >
+              <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Age</th>
+                <th scope="col">Email</th>
+                <th scope="col">Role</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+              </tr>
+              </thead>
+              <tbody>
+
+                  <tr  th:each="user : ${_user}">
+                    <th scope="row" ><span class="" style="font-weight: normal;" th:text="${user.getId()}"></span></th>
+                    <td class="text-lowercase"  th:text="${user.getName()}"> </td>
+                    <td class="text-lowercase"  th:text="${user.getLastName()}"> </td>
+                    <td th:text="${user.getAge()}"></td>
+                    <td th:text="${user.getEmail()}"></td>
+                    <td class="text-uppercase" >
+                      <th:block th:each="role : ${user.getRoleSet()}">
+                        <span th:switch="${role.getName()}">
+                          <span th:case="'ROLE_ADMIN'">ADMIN</span>
+                          <span th:case="'ROLE_USER'">USER</span>
+                          <span th:case="'ROLE_SUPER_MEN'">SUPER MEN</span>
+                        </span>
+                      </th:block>
+                    </td>
+                    <td>
+
+                      <form >
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" th:data-bs-target="'#editModal' + ${user.getId()}">
+                          Edit
+                        </button>
+                      </form>
+                      <!-- Модальное окно  EDIT-->
+                      <span th:replace ="include/model_edit_inc :: model_edit"/>
+                      <!-- Модальное окно EDIT-->
+                    </td>
+                    <td>
+                      <form>
+                        <button type="button" class="btn btn-danger text-whit" data-bs-toggle="modal" th:data-bs-target="'#editModall' + ${user.getId()}">
+                          Delete
+                        </button>
+                      </form>
+                      <!-- Модальное окно  Delete-->
+                      <span th:replace ="include/model_delete_inc::model_delete"/>
+                      <!-- Модальное окно Delete-->
+                    </td>
+                  </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+          <div class="alert alert-secondary fs-6 text-black fw-bold"  role="alert" style="background-color: #F7F7F7">
+            Add new user
+          </div>
+          <!-- New User -->
+          <span th:replace="include/new_user_inc::new_user"/>
+          <!-- New User -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

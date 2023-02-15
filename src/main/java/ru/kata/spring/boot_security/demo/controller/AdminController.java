@@ -10,6 +10,7 @@ import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
 import ru.kata.spring.boot_security.demo.util.UserValidator;
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.Collection;
 
 @Controller
@@ -27,11 +28,14 @@ public class AdminController {
         this.userService = userService;
     }
 
+
     // Get all User
     @GetMapping("")
-    public String pageAdmin(Model model){
+    public String pageAdmin(Model model, Principal principal) {
         model.addAttribute("_user", userService.index());
-        return "/admin/index_user";
+        model.addAttribute("_userPrincipal", userService.getUserNameSc(principal.getName()));
+        model.addAttribute("_roleSet", getRoleChek ());
+        return "/admin/admin";
     }
 
     // Get one user
@@ -42,38 +46,19 @@ public class AdminController {
     }
 
     // Add one user
-    @GetMapping("/new")
-    public String pageNewUser (@ModelAttribute("_user") User user, Model model) {
-        model.addAttribute("_roleSet", getRoleChek ());
-        return "/admin/new";
-    }
-
-    @PostMapping("/new")
-    public String pageNewUserPost (@ModelAttribute("_user") @Valid User user, BindingResult bindingResult, Model model) {
-        userValidator.validate(user, bindingResult);
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("_roleSet", getRoleChek ());
-            return "/admin/new";
-        }
+    @PostMapping("")
+    public String pageNewUserPost (@ModelAttribute("_user") User user) {
+        System.out.println(user);
+        System.out.println("-----------------------------------------------------");
         userService.saveUser(user);
         return "redirect:/admin";
     }
     // Add one user
 
     // Update user
-    @GetMapping("/{id}/edit") // Редактируем человека - переходим на формe куда подтягиваем нашего юзера по ID
-    public String getEdit(Model model, @PathVariable("id") int id) {
-        model.addAttribute("_user", userService.getUserId(id));
-        model.addAttribute("_roleSet", getRoleChek ());
-        return "/admin/edit";
-    }
-
     @PatchMapping("/{id}")
-    public String getUpdate (@ModelAttribute("_user") @Valid User user, BindingResult bindingResult, @PathVariable ("id") int  id, Model model) {
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("_roleSet", getRoleChek ());
-            return  "/admin/edit";
-        }
+    public String getUpdate (@ModelAttribute("_userForma") @Valid  User user, BindingResult bindingResult, @PathVariable ("id") int  id) {
+        System.out.println(user);
         userService.updateUser(id, user);
         return "redirect:/admin";
     }

@@ -1,0 +1,30 @@
+<th:block th:fragment="header_nav">
+<nav class="navbar navbar-expand-lg text-white " style="background-color: #343A40;">
+  <div class="container-fluid ">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Переключатель навигации">
+      <span class="navbar-toggler-icon"> </span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div class="navbar-nav me-auto ">
+        <span th:text="${_userPrincipal.getEmail()}" class="fw-bold text-white " style="padding-right: 5px">  </span>
+        <span> with roles:
+         <span class="fw-normal"  >
+            <th:block th:each="role : ${_userPrincipal.getRoleSet()}">
+                  <span th:switch="${role.getName()}">
+                    <span th:case="'ROLE_ADMIN'">ADMIN</span>
+                    <span th:case="'ROLE_USER'">USER</span>
+                    <span th:case="'ROLE_SUPER_MEN'">SUPER MEN</span>
+                  </span>
+            </th:block>
+          </span>
+        </span>
+      </div>
+      <div class="navbar-nav ms-auto ">
+          <form th:method="POST" th:action="@{/logout}">
+              <input type="submit" class="btn  text-light-emphasis"   value="Logout">
+          </form>
+      </div>
+    </div>
+  </div>
+</nav>
+</th:block>

@@ -1,0 +1,34 @@
+<th:block th:fragment="left_menu">
+
+ <style ENGINE="text/css">
+    a.left_menu{ width: 112%; margin-left: -14px;}
+    a.left_menu{text-decoration:none;}
+    a.act{background-color: #0D6EFD; color: white;}
+</style>
+
+
+<div id="msgText">
+    <span th:switch="${_userPrincipal.getName()}">
+        <span th:case="'Admin'">
+            <a href="/admin"  class="btn btn-outline-primary border border-white text-start left_menu" >Admin</a>
+            <br>
+             <a href="/user"   class="btn btn-outline-primary border border-white text-start left_menu" >User</a>
+        </span>
+        <span th:case="'User'">
+            <a href="/user"   class="btn btn-outline-primary border border-white text-start left_menu" >User</a>
+        </span>
+    </span>
+ </div>
+
+ <script type="text/javascript">
+     try{
+       var el=document.getElementById('msgText').getElementsByTagName('a');
+       var url=document.location.href;
+       for(var i=0;i<el.length; i++){
+         if (url==el[i].href){
+           el[i].className += ' act';
+         };
+       };
+     }catch(e){}
+ </script>
+</th:block>
